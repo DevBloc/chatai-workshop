@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 
 export default class App extends React.Component {
   constructor() {
@@ -11,12 +11,25 @@ export default class App extends React.Component {
     };
   }
 
+  handleChangeText(text) {
+    this.setState((previousState) => {
+      return {
+        text: text,
+        messages: previousState.messages,
+        context: previousState.context,
+      };
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <ScrollView>
+        </ScrollView>
+        <TextInput
+          placeholder="type your message here..."
+          onChangeText={() => this.handleChangeText()}
+        />
       </View>
     );
   }
