@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, ScrollView, Button, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Button, KeyboardAvoidingView, Keyboard } from 'react-native';
 import base64 from 'base-64';
 
 export default class App extends React.Component {
@@ -48,6 +48,7 @@ export default class App extends React.Component {
   }
 
   sendMessage() {
+    Keyboard.dismiss()
     // Open credentials to public
     fetch("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/ab090663-c284-4f6a-9e62-17a97ba322a0/message?version=2017-05-26", {
       method: 'POST',
@@ -94,7 +95,7 @@ export default class App extends React.Component {
         <ScrollView>
           {
             this.state.messages.map((item) => {
-              return <Text style={styles.text} key={item.id}>{item.message}</Text>
+              return <View style={styles.textContainer} key={item.id}><Text style={styles.text}>{item.message}</Text></View>
             })
           }
         </ScrollView>
@@ -121,19 +122,24 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   input: {
-    borderColor: '#000',
-    borderWidth: 2,
     width: 250,
+    marginLeft: 5
   },
   inputContainer: {
+    borderColor: '#000',
+    borderWidth: 2,
     flexDirection: 'row',
     marginBottom: 30
   },
-  text: {
+  textContainer: {
     borderColor: '#000',
     borderWidth: 1,
     marginLeft: 5,
     marginRight: 5,
     marginTop: 10,
+  },
+  text: {
+    marginLeft: 5,
+    marginRight: 5,
   }
 });
