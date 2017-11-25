@@ -21,6 +21,30 @@ export default class App extends React.Component {
     });
   }
 
+  sendMessage() {
+    fetch("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/ab090663-c284-4f6a-9e62-17a97ba322a0/message?version=2017-05-26", {
+      method: 'POST',
+      headers: {
+       'Authorization': 'Basic '+ base64.encode('6a4a6520-6ce0-4bb8-b2cf-62c12b0a8942:tku7SWLkExMU'),
+       'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({input: {'text': this.state.text}, context: this.state.context}),
+    })
+    .then(response => response.json())
+    .then(responseData => {
+      this.setState((previousState) =>
+        let newMessages = this.watsonMessageToUnique([this.state.text, ...responseData.output.text]);
+
+        return {
+          messages: [...previousState.messages, ...newMessages],
+          text: previousState.text,
+          context: responseData.context
+        };
+      });
+    })
+    .done();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -35,6 +59,7 @@ export default class App extends React.Component {
           placeholder="type your message here..."
           onChangeText={() => this.handleChangeText()}
         />
+        <Button title="Send" onPress={() => this.sendMessage()}/>
       </View>
     );
   }
