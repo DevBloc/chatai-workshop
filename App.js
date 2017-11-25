@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Button, KeyboardAvoidingView } from 'react-native';
 import base64 from 'base-64';
 
 export default class App extends React.Component {
@@ -13,6 +13,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    // Open credentials to public
     fetch("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/ab090663-c284-4f6a-9e62-17a97ba322a0/message?version=2017-05-26", {
       method: 'POST',
       headers: {
@@ -47,7 +48,7 @@ export default class App extends React.Component {
   }
 
   sendMessage() {
-    let m = this.state.text;
+    // Open credentials to public
     fetch("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/ab090663-c284-4f6a-9e62-17a97ba322a0/message?version=2017-05-26", {
       method: 'POST',
       headers: {
@@ -89,21 +90,24 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <ScrollView>
           {
             this.state.messages.map((item) => {
-              return <Text key={item.id}>{item.message}</Text>
+              return <Text style={styles.text} key={item.id}>{item.message}</Text>
             })
           }
         </ScrollView>
-        <TextInput
-          ref={'textInput'}
-          placeholder="type your message here..."
-          onChangeText={(txt) => this.handleChangeText(txt)}
-        />
-        <Button title="Send" onPress={() => this.sendMessage()}/>
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            ref={'textInput'}
+            placeholder="type your message here..."
+            onChangeText={(txt) => this.handleChangeText(txt)}
+            style={styles.input}
+          />
+          <Button title="Send" onPress={() => this.sendMessage()}/>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -116,4 +120,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 30
   },
+  input: {
+    borderColor: '#000',
+    borderWidth: 2,
+    width: 250,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    marginBottom: 30
+  },
+  text: {
+    borderColor: '#000',
+    borderWidth: 1,
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 10,
+  }
 });
