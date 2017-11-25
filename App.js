@@ -25,6 +25,11 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView>
+          {
+            this.state.messages.map((item) => {
+              return <Text key={item.id}>{item.message}</Text>
+            });
+          }
         </ScrollView>
         <TextInput
           placeholder="type your message here..."
