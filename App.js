@@ -11,6 +11,30 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    fetch("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/ab090663-c284-4f6a-9e62-17a97ba322a0/message?version=2017-05-26", {
+      method: 'POST',
+      headers: {
+       'Authorization': 'Basic '+ base64.encode('6a4a6520-6ce0-4bb8-b2cf-62c12b0a8942:tku7SWLkExMU'),
+       'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({}),
+    })
+    .then(response => response.json())
+    .then(responseData => {
+      let newMessages = this.addUniqueKeyToMessages(...responseData.output.text);
+
+      this.setState((previousState) => {
+        return {
+          messages: [...responseData.output.text],
+          text: previousState.text,
+          context: responseData.context
+        };
+      });
+    })
+    .done();
+  }
+
   handleChangeText(text) {
     this.setState((previousState) => {
       return {
