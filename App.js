@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
+import base64 from 'base-64';
+import uid from 'uid';
 
 export default class App extends React.Component {
   constructor() {
