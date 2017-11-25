@@ -33,7 +33,7 @@ export default class App extends React.Component {
     .then(response => response.json())
     .then(responseData => {
       this.setState((previousState) =>
-        let newMessages = this.watsonMessageToUnique([this.state.text, ...responseData.output.text]);
+        let newMessages = this.addUniqueKeyToMessages([this.state.text, ...responseData.output.text]);
 
         return {
           messages: [...previousState.messages, ...newMessages],
@@ -43,6 +43,15 @@ export default class App extends React.Component {
       });
     })
     .done();
+  }
+
+  addUniqueKeyToMessages(msgs) {
+    return msgs.map((msg) => {
+      return {
+        message: msg,
+        id: uid(10),
+      };
+    });
   }
 
   render() {
