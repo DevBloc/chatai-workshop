@@ -1,3 +1,20 @@
+# Chat AI Workshop
+
+To get started:
+1. Download and install [NodeJS](https://nodejs.org/en/).
+2. Install the [Expo](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en) app from the Apple or Google Play store.
+2. Clone this repo.
+3. Create your free account at [IBM Watson Conversation Workspace](https://www.ibm.com/watson/services/conversation/). Navigate to the link and click on "Getting Started".
+4. Import the `pizza_workspace.json` file into your conversation workspace on IBM Watson.
+5. Navigate to your local repository, and install dependencies by running `npm install` from the terminal of your choice.
+6. Run the `npm start` command after dependencies have been installed to build and run the project.
+7. The packager will run on your terminal and generate a QR code that you can scan with the 'Expo' app on your phone to run the application on your device.
+8. **Important !** Both your computer and your phone *must* be on the same local network for the app to load correctly.
+
+If you have any further questions about the starter project, the *LunaAI* team will be present for the remainder of Bloc Hacks and the mentoring sessions.
+
+*The following instructions are from the 'Create React Native App' starter guide from Facebook, and provides more detailed instructions on how to run and configure a react native app*.
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
